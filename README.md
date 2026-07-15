@@ -1,0 +1,1 @@
+Deploy to Render as Node. Build: npm install Start: npm start Callback URL: https://YOURAPP.onrender.com/webhook
