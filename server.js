@@ -7,11 +7,14 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Set port and verify_token
+// Set port and verify token
 const port = process.env.PORT || 3000;
-const verifyToken = process.env.VERIFY_TOKEN;
+const verifyToken = process.env.VERIFY_TOKEN || 'tttt-aaaa-bbbb-cccc';
 
-console.log("VERIFY_TOKEN:", verifyToken);
+if (!process.env.VERIFY_TOKEN) {
+  console.warn('VERIFY_TOKEN environment variable not set. Using fallback token "tttt-aaaa-bbbb-cccc".');
+}
+console.log('VERIFY_TOKEN:', verifyToken);
 
 // Route for GET requests
 app.get('/', (req, res) => {
