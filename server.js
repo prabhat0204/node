@@ -19,7 +19,7 @@ console.log('VERIFY_TOKEN:', verifyToken);
 // Route for GET requests
 app.get('/', (req, res) => {
   console.log('WEBHOOK VERIFIED111');
-  console.log('req.query:', req.query);
+  console.log('req.query:', req);
 
   const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query;
 
