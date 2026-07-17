@@ -19,7 +19,7 @@ console.log('VERIFY_TOKEN:', verifyToken);
 // Route for GET requests
 app.get('/', (req, res) => {
   console.log('WEBHOOK VERIFIED111');
-  console.log('req.query:', req);
+  console.log('req.query:', req.body);
 
   const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query;
 
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 // Route for POST requests
 app.post('/', (req, res) => {
   console.log('WEBHOOK VERIFIED222');
-  console.log('req.query:', req);
+  console.log('req.body:', req.body);
   const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
   console.log(`\n\nWebhook received ${timestamp}\n`);
   console.log(JSON.stringify(req.body, null, 2));
