@@ -34,7 +34,17 @@ app.get('/', (req, res) => {
 // Route for POST requests
 app.post('/', (req, res) => {
   console.log('WEBHOOK VERIFIED222');
-  console.log('req.body:', req.body);
+  //console.log('req.body:', req.body);
+  const body = req.body;
+  const value = body.entry[0].changes[0].value;
+
+  const phoneNumber = value.messages[0].from;          // Customer phone
+  const message = value.messages[0].text?.body;        // Customer message
+  const customerName = value.contacts[0].profile.name; // Customer name
+
+  console.log("Phone Number:", phoneNumber);
+  console.log("Customer Name:", customerName);
+  console.log("Message:", message);
   const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
   console.log(`\n\nWebhook received ${timestamp}\n`);
   console.log(JSON.stringify(req.body, null, 2));
