@@ -41,8 +41,18 @@ app.post('/', (req, res) => {
   const phoneNumber = value.messages[0].from;          // Customer phone
   const message = value.messages[0].text?.body;        // Customer message
   const customerName = value.contacts[0].profile.name; // Customer name
-  const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
-  console.log(`\n\nWebhook received ${timestamp}\n`);
+  const timestamp = new Date().toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+
+  console.log(`Webhook received: ${timestamp}`);
   console.log("Phone Number:", phoneNumber);
   console.log("Customer Name:", customerName);
   console.log("Message:", message);
