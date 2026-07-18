@@ -35,12 +35,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   console.log('===========================');
   console.log('req.body:', JSON.stringify(req.body.entry[0].changes[0]));
-  const body = req.body;
-  const value = body.entry[0].changes[0].value;
-
-  const phoneNumber = value.messages[0].from;          // Customer phone
-  const message = value.messages[0].text?.body;        // Customer message
-  const customerName = value.contacts[0].profile.name; // Customer name
+  
   const timestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     year: 'numeric',
@@ -53,9 +48,43 @@ app.post('/', (req, res) => {
   });
 
   console.log(`Webhook received: ${timestamp}`);
-  console.log("Phone Number:", phoneNumber);
-  console.log("Customer Name:", customerName);
-  console.log("Message:", message);
+  const value = req.body.value ||
+                  req.body.entry?.[0]?.changes?.[0]?.value;
+
+    // Incoming customer message
+    if (value?.messages) {
+
+        console.log("===== CUSTOMER MESSAGE =====");
+
+        const msg = value.messages[0];
+
+        console.log("Name :", value.contacts[0].profile?.name);
+        console.log("Phone:", msg.from);
+        console.log("Message:", msg.text?.body);
+
+    }
+
+    // Status update
+    if (value?.statuses) {
+
+        console.log("===== STATUS UPDATE =====");
+
+        const status = value.statuses[0];
+
+        console.log("Phone :", status.recipient_id);
+        console.log("Status:", status.status);
+
+        if (status.pricing) {
+            console.log("Category :", status.pricing.category);
+            console.log("Billable :", status.pricing.billable);
+        }
+
+        if (status.errors) {
+            console.log("Errors:", JSON.stringify(status.errors, null, 2));
+        }
+    }
+
+    //res.sendStatus(200);
   //const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
   //console.log(`\n\nWebhook received ${timestamp}\n`);
   //console.log(JSON.stringify(req.body, null, 2));
