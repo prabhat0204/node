@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 // Route for POST requests
 app.post('/', (req, res) => {
-  console.log('===========================');
+  //console.log('===========================');
   //console.log('req.body:', JSON.stringify(req.body.entry[0].changes[0]));
   
   const timestamp = new Date().toLocaleString('en-IN', {
@@ -80,7 +80,17 @@ app.post('/', (req, res) => {
         }
 
         if (status.errors) {
-            console.log("Errors:", JSON.stringify(status.errors, null, 2));
+            //console.log("Errors:", JSON.stringify(status.errors, null, 2));
+            if (status.errors?.length) {
+                status.errors.forEach((err, index) => {
+                    console.log(`\nError ${index + 1}`);
+                    console.log("--------------------------------");
+                    console.log("Code           :", err.code);
+                    console.log("Title          :", err.title);
+                    console.log("Message        :", err.message);
+                    console.log("Details        :", err.error_data?.details || "N/A");
+                });
+            }
         }
     }
 
