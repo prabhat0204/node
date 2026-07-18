@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 // Route for POST requests
 app.post('/', (req, res) => {
   console.log('===========================');
-  console.log('req.body:', req.body.entry[0].changes[0]);
+  console.log('req.body:', JSON.stringify(req.body.entry[0].changes[0]));
   const body = req.body;
   const value = body.entry[0].changes[0].value;
 
