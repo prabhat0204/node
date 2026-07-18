@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 // Route for POST requests
 app.post('/', (req, res) => {
   console.log('===========================');
-  console.log('req.body:', JSON.stringify(req.body.entry[0].changes[0]));
+  //console.log('req.body:', JSON.stringify(req.body.entry[0].changes[0]));
   
   const timestamp = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
@@ -47,7 +47,7 @@ app.post('/', (req, res) => {
     hour12: false,
   });
 
-  console.log(`Webhook received: ${timestamp}`);
+  
   const value = req.body.value ||
                   req.body.entry?.[0]?.changes?.[0]?.value;
 
@@ -57,7 +57,7 @@ app.post('/', (req, res) => {
         console.log("===== CUSTOMER MESSAGE =====");
 
         const msg = value.messages[0];
-
+        console.log(`Webhook received: ${timestamp}`);
         console.log("Name :", value.contacts[0].profile?.name);
         console.log("Phone:", msg.from);
         console.log("Message:", msg.text?.body);
@@ -70,7 +70,7 @@ app.post('/', (req, res) => {
         console.log("===== STATUS UPDATE =====");
 
         const status = value.statuses[0];
-
+        console.log(`Webhook received: ${timestamp}`);
         console.log("Phone :", status.recipient_id);
         console.log("Status:", status.status);
 
