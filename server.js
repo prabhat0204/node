@@ -70,24 +70,24 @@ app.post('/', (req, res) => {
         console.log("===== STATUS UPDATE =====");
 
         const status = value.statuses[0];
-        console.log(`Webhook received: ${timestamp}`);
+        //console.log(`Webhook received: ${timestamp}`);
         console.log("Phone :", status.recipient_id);
         console.log("Status:", status.status);
 
-        if (status.pricing) {
-            console.log("Category :", status.pricing.category);
-            console.log("Billable :", status.pricing.billable);
-        }
+        // if (status.pricing) {
+        //     console.log("Category :", status.pricing.category);
+        //     console.log("Billable :", status.pricing.billable);
+        // }
 
         if (status.errors) {
             //console.log("Errors:", JSON.stringify(status.errors, null, 2));
             if (status.errors?.length) {
                 status.errors.forEach((err, index) => {
-                    console.log(`\nError ${index + 1}`);
-                    console.log("--------------------------------");
-                    console.log("Code           :", err.code);
-                    console.log("Title          :", err.title);
-                    console.log("Message        :", err.message);
+                    //console.log(`\nError ${index + 1}`);
+                    //console.log("--------------------------------");
+                    //console.log("Code           :", err.code);
+                    //console.log("Title          :", err.title);
+                    //console.log("Message        :", err.message);
                     console.log("Details        :", err.error_data?.details || "N/A");
                 });
             }
