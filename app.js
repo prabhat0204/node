@@ -1,18 +1,31 @@
 const express = require('express');
 
-const router = express.Router();
+const app = express();
+const port = process.env.PORT || 3000;
 
-router.get('/echo', (req, res) => {
+app.use(express.json());
+
+app.get('/echo', (req, res) => {
   const payload = Object.keys(req.query).length > 0 ? req.query : { message: 'GET received' };
   res.json({ method: 'GET', payload });
 });
 
-router.post('/echo', (req, res) => {
+app.post('/echo', (req, res) => {
   res.json({ method: 'POST', payload: req.body ?? {} });
 });
 
-router.put('/echo', (req, res) => {
+app.put('/echo', (req, res) => {
   res.json({ method: 'PUT', payload: req.body ?? {} });
 });
 
-module.exports = router;
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Echo service is running' });
+});
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Echo service listening on port ${port}`);
+  });
+}
+
+module.exports = app;
